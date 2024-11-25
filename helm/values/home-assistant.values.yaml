@@ -1,0 +1,50 @@
+---
+replicaCount: 1
+hostNetwork: true
+nodeSelector: 
+  kubernetes.io/hostname: ironclad
+ingress:
+  enabled: true
+  hosts:
+    - host: assistant.home
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+securityContext:
+  privileged: true
+configuration:
+  enabled: true
+  forceInit: true
+  trustedProxies: 
+    - 10.42.0.0./16
+  templateConfig: |-
+    # Loads default set of integrations. Do not remove.
+    default_config:
+
+    {{- if .Values.ingress.enabled }}
+    http:
+      use_x_forwarded_for: true
+      trusted_proxies:
+        {{- range .Values.configuration.trusted_proxies }}
+        - {{ . }}
+        {{- end }}
+    {{- end}}
+    # Load frontend themes from the themes folder
+    frontend:
+      themes: !include_dir_merge_named themes
+
+    automation: !include automations.yaml
+    script: !include scripts.yaml
+    scene: !include scenes.yaml
+additionalVolumes:
+  - hostPath:
+      path: >-
+        /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231218194347-if00
+      type: CharDevice
+    name: usb
+additionalMounts:
+  - mountPath: /dev/ttyACM0
+    name: usb
