@@ -1,6 +1,8 @@
 ---
 persistentVolumeClaim:
   enabled: true
+dnsStack:
+  enabled: true
 ingress:
   enabled: true
   hosts:
@@ -12,6 +14,7 @@ serviceWeb:
   type: LoadBalancer
 serviceDns:
   loadBalancerIP: 10.0.0.201
+  loadBalancerIPv6: 2a02:8011:e33f:0000:ffff:ffff:ffff:0001
   annotations:
     metallb.universe.tf/allow-shared-ip: pihole-svc
   type: LoadBalancer
