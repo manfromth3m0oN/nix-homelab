@@ -1,0 +1,9 @@
+replicas: 1
+ingress:
+  enabled: true
+  hosts:
+    - "grafana.home"
+persistence:
+  enabled: true
+  type: pvc
+  size: 15Gi

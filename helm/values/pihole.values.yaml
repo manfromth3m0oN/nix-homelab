@@ -1,7 +1,7 @@
 ---
 persistentVolumeClaim:
   enabled: true
-dnsStack:
+dualStack:
   enabled: true
 ingress:
   enabled: true

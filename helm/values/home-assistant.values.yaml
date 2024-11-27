@@ -15,6 +15,10 @@ persistence:
   accessMode: ReadWriteOnce
 securityContext:
   privileged: true
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /api/prometheus
+  prometheus.io/port: "8123"
 configuration:
   enabled: true
   forceInit: true
@@ -39,6 +43,9 @@ configuration:
     automation: !include automations.yaml
     script: !include scripts.yaml
     scene: !include scenes.yaml
+    prometheus: 
+      namespace: "myhass"
+      requires_auth: false
 additionalVolumes:
   - hostPath:
       path: >-
