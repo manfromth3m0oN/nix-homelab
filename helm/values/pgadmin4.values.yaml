@@ -1,0 +1,13 @@
+replicaCount: 1
+ingress:
+  enabled: true
+  hosts:
+    - host: "pgadmin.home"
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+persistentVolume:
+  enabled: true
+  size: 5Gi
+namespace: "postgres"
+        
