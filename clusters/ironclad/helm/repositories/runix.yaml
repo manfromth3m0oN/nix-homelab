@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: runix
-  namespace: postgres
+  namespace: flux-system
 spec:
   interval: 10m0s
   url: https://helm.runix.net
