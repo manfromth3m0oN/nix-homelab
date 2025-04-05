@@ -1,0 +1,77 @@
+repositories:
+  - name: longhorn
+    url: https://charts.longhorn.io
+  - name: metallb
+    url: https://metallb.github.io/metallb
+  - name: mojo2600
+    url: https://mojo2600.github.io/pihole-kubernetes/
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: pajikos
+    url: https://pajikos.github.io/home-assistant-helm-chart/
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+  - name: strrl.dev
+    url: https://helm.strrl.dev
+---
+releases:
+  # Storage
+  - name: longhorn
+    namespace: longhorn-system
+    chart: longhorn/longhorn
+    version: 1.7.2
+
+  # Load balancer
+  - name: metallb
+    namespace: metallb-system
+    chart: metallb/metallb
+    version: 0.14.8
+
+  - name: pihole
+    namespace: pihole-system
+    chart: mojo2600/pihole
+    version: 2.18.0
+    values:
+      - ./values/pihole.values.yaml
+
+  - name: externaldns-pihole
+    namespace: pihole-system
+    chart: bitnami/external-dns
+    version: 8.0.1
+    values:
+      - ./values/externaldns.values.yaml
+
+  - name: home-assistant
+    namespace: home-assistant
+    chart: pajikos/home-assistant
+    version: 0.2.89
+    values:
+      - ./values/home-assistant.values.yaml
+
+  - name: prometheus
+    namespace: monitoring
+    chart: prometheus-community/prometheus
+    version: 25.30.1
+
+  - name: grafana
+    namespace: monitoring
+    chart: grafana/grafana
+    version: 8.6.2
+    values:
+      - ./values/grafana.values.yaml
+
+  - name: pgadmin
+    namespace: postgres
+    chart: runix/pgadmin4
+    version: 1.33.2
+    values:
+      - ./values/pgadmin4.values.yaml
+
+  - name: cloudflare-tunnel-ingress-controller
+    namespace: cloudflare-tunnel-ingress-controller
+    chart: strrl.dev/cloudflare-tunnel-ingress-controller
+    version: 0.0.18
+    values:
+      - ./values/cloudflare-ingress.values.yaml

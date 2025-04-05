@@ -1,0 +1,4 @@
+cloudflare:
+  accountId: "7b34fff7c0f7f19e08c48adfd1d52324"
+  tunnelName: "ironclad-k8s"
+  apiToken: "qv5gmnFBQy4SXw1zHRWgOvIrXQdV2QMCK0dKm2ps"

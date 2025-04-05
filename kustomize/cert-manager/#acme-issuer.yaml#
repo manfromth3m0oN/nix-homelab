@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: acme-issuer
+spec:
+  acme:
+    email: carl@smallstep.com
+    server: https://example.ca.smallstep.com/acme/acme/directory
+    caBundle: LS0tLS1DRUdJTiBDRVJUSUZJEXAMPLE2UE11OWN4ckRNYWpQTlRTbkxCcEkxd1K4VnQ3SHBSK3A5b1JUTEzKcXxBPqotLSVOEXAMPLEUSUZJQ0FURS0tLS0tCg==
+    privateKeySecretRef:
+      name: acme-issuer-account-key
+    solvers:
+    - dns01:
+        cloudDNS:
+          # Your Google Cloud Platform project ID:
+          project: step-gcp-test
+          # Your Google CloudDNS zone name we will use for DNS01 challenges:
+          hostedZoneName: step-public-zone
+          serviceAccountSecretRef:
+            name: clouddns-dns01-solver-svc-acct
+            key: key.json
